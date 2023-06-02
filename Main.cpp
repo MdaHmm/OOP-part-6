@@ -1,7 +1,7 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <map>
 
-// Конструктор копирования
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 /*
 class Client
 {
@@ -19,20 +19,52 @@ public:
 
 	void ShowData()
 	{
-		std::cout << "Возраст: " << _age << '\n';
+		std::cout << "Р’РѕР·СЂР°СЃС‚: " << _age << '\n';
 		std::cout << "id: " << _id << '\n';
 	}
 };
 */
 
-// Контейнер библиотеки stl
+// РљРѕРЅС‚РµР№РЅРµСЂ Р±РёР±Р»РёРѕС‚РµРєРё stl
+
+class Client
+{
+private:
+	int _id;
+	std::string _name;
+	float _bill;
+public:
+	Client(int id, std::string name, float bill, std::map<int, Client*>&map) : _id(id), _name(name), _bill(bill)
+	{
+		map[_id] = this; // РІ РјР°Рї Р·Р°РїРёСЃС‹РІР°РµС‚СЃСЏ Р°Р№РґРё Рё С‚РѕС‚, РєС‚Рѕ РІС‹Р·РІР°Р» СЌС‚РѕС‚ РјР°Рї
+	}
+
+	Client(Client& client)
+	{
+		_id = client._id;
+		_name = client._name;
+		_bill = client._bill;
+	}
+
+	void ShowData()
+	{
+		std::cout << "id: " << _id << '\n';
+		std::cout << "РРјСЏ: " << _name << '\n';
+		std::cout << "РЎС‡РµС‚: " << _bill << '\n';
+	}
+
+	/*void Foo() {
+		this->_id;
+	}*/
+};
+
 
 
 int main() {
 
 	setlocale(LC_ALL, "Russian");
 	
-	// Конструктор копирования 
+	// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ 
 	/*
 	Client client(24, 1);
 	Client client2(client);
@@ -42,41 +74,47 @@ int main() {
 
 	// Map
 
-	// 23 - Санек
-	// 26 - Александр
+	// 23 - РЎР°РЅРµРє
+	// 26 - РђР»РµРєСЃР°РЅРґСЂ
+	
+	// map clients 
+	/*
 	std::map<int, std::string>clients =
 	{
-		{23, "Санёк"},
-		{26, "Александр"},
-		{30, "Саня"}
+		{23, "РЎР°РЅС‘Рє"},
+		{26, "РђР»РµРєСЃР°РЅРґСЂ"},
+		{30, "РЎР°РЅСЏ"}
 	};
-
-	auto it = clients.begin();
-
-	//Пример вывода
 	
-	//std::cout << it->first << '\n'; // выводит ключ
-	//std::cout << it->second << '\n'; // выводит значение
+	auto it = clients.begin();
+	*/
+	
+	//РџСЂРёРјРµСЂ РІС‹РІРѕРґР°
+	
+	//std::cout << it->first << '\n'; // РІС‹РІРѕРґРёС‚ РєР»СЋС‡
+	//std::cout << it->second << '\n'; // РІС‹РІРѕРґРёС‚ Р·РЅР°С‡РµРЅРёРµ
 	//it++; 
-	//std::cout << it->first << '\n'; // выводит ключ второго элемента
-	//std::cout << it->second << '\n'; // выводит значение
+	//std::cout << it->first << '\n'; // РІС‹РІРѕРґРёС‚ РєР»СЋС‡ РІС‚РѕСЂРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
+	//std::cout << it->second << '\n'; // РІС‹РІРѕРґРёС‚ Р·РЅР°С‡РµРЅРёРµ
 	//it--;
 
-	//std::advance(it, 2); // передвижение итератора
+	//std::advance(it, 2); // РїРµСЂРµРґРІРёР¶РµРЅРёРµ РёС‚РµСЂР°С‚РѕСЂР°
 	//std::cout << it->first << '\n'; 
 	//std::cout << it->second << '\n';
 	
-	clients.insert(std::make_pair(40, "Искандер")); // Добавляем запись в мап
-	clients[55] = "Саша"; // Так же добавляем клиента но проще
+	//РџСЂРёРјРµСЂ
+	/*
+	clients.insert(std::make_pair(40, "РСЃРєР°РЅРґРµСЂ")); // Р”РѕР±Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ РјР°Рї
+	clients[55] = "РЎР°С€Р°"; // РўР°Рє Р¶Рµ РґРѕР±Р°РІР»СЏРµРј РєР»РёРµРЅС‚Р° РЅРѕ РїСЂРѕС‰Рµ
 
 	for (; it != clients.end(); it++) {
 		std::cout << it->first << " - ";
 		std::cout << it->second << '\n';
 	}
 
-	std::cout << "Вывод по обращению к ключу 23 - " << clients[23] << '\n';
+	std::cout << "Р’С‹РІРѕРґ РїРѕ РѕР±СЂР°С‰РµРЅРёСЋ Рє РєР»СЋС‡Сѓ 23 - " << clients[23] << '\n';
 
-	it = clients.find(23); // поиск по ключу
+	it = clients.find(23); // РїРѕРёСЃРє РїРѕ РєР»СЋС‡Сѓ
 
 	clients.erase(it);
 
@@ -84,6 +122,22 @@ int main() {
 		std::cout << it->first << " - ";
 		std::cout << it->second << '\n';
 	}
+	*/
+
+	std::map<int, Client*>clients;
+	Client* client = new Client(12, "РЎР°РЅСЏ", 123321.2f, clients);
+	Client* client2 = new Client(25, "РЎР°РЅС‡РµР·", 21.66f, clients);
+	Client* client3 = new Client(43, "РђР»РµРєСЃР°РЅРґСЂ", 46521.32f, clients);
+	//client->Foo();
+	
+	auto it = clients.begin();
+
+	for (; it != clients.end(); ++it) {
+		std::cout << "Id РєР»РёРµРЅС‚Р° - " << it->first << " :\n";
+		it->second->ShowData();
+		std::cout << "\n\n";
+	}
+
 
 
 	return 0;
